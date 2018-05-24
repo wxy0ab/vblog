@@ -124,7 +124,7 @@ export const constantRouterMap = [
             }
         ]
     },
-    {
+    /*{
         path: '/user/helper',
         redirect: '/user/helper/main',
         component: Layout,
@@ -141,7 +141,7 @@ export const constantRouterMap = [
                 meta: { title: '使用帮助' }
             }
         ]
-    },
+    }, */
     {
         path: '/user/readme',
         redirect: '/user/readme/main',

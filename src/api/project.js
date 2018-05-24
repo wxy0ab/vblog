@@ -7,6 +7,11 @@ export default {
         return request({
             url: '/repos/' + githubUsername + '/' + githubUsername + '.github.io/contents/README.md'
         })
+    },getBlogLicense: function () {
+        let githubUsername = store.state.configuration.githubUsername
+        return request({
+            url: '/repos/' + githubUsername + '/' + githubUsername + '.github.io/contents/LICENSE'
+        })
     },
     getBlogConfigure: function () {
         let githubUsername = store.state.configuration.githubUsername

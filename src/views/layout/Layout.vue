@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="page-header" :style="'background-image: linear-gradient(120deg, '+backgroundColorLeft+', '+backgroundColorRight+');color: '+fontColor+';'">
+        <section class="page-header" :style="'background-image: url('+ background.bg1+');color: '+fontColor+';'">
             <div style="position:absolute; top:20px; right:20px; z-index:2;">
                 <el-tooltip effect="dark" :content="fullButton.full?'退出':'全屏'" placement="bottom-end">
                     <el-button @click="full" :icon="fullButton.full?'el-icon-close':'el-icon-rank'" circle></el-button>
@@ -14,7 +14,7 @@
             <h1 class="project-name">{{blogTitle}}</h1>
             <h2 class="project-tagline">{{blogDescribe}}</h2>
             <a :href="'https://github.com/'+githubUsername" class="btn" target="_blank">GitHub主页</a>
-            <a href="https://github.com/GitHub-Laziji/vblog" class="btn" target="_blank" v-if="!mini">博客源码</a>
+            <a href="https://github.com/wxy2ab" class="btn" target="_blank" v-if="!mini">老王的收藏</a>
         </section>
         <div style="position:relative;  z-index:2;margin: auto;margin-top:-30px;width:64rem;">
             <el-card shadow="never" :body-style="{ padding: '0px' }">
@@ -129,7 +129,10 @@
                 topbar: {
                     active: "",
                 },
-                randomIcon: []
+                randomIcon: [],
+                background:{
+                bg1:require('../../assets/bg1.png')
+                }
             }
         },
         computed: {
