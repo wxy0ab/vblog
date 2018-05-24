@@ -6,7 +6,7 @@
                     <el-button @click="full" :icon="fullButton.full?'el-icon-close':'el-icon-rank'" circle></el-button>
                 </el-tooltip>
             </div>
-            <div @mouseenter="moveIcon(index)" v-for="(item,index) in randomIcon" :key="'ri'+index" :style="'position:absolute; top:'+item.top+'px; left:'+item.left+'px; z-index:1;'">
+            <div v-for="(item,index) in randomIcon" :key="'ri'+index" :style="'position:absolute; top:'+item.top+'px; left:'+item.left+'px; z-index:1;'">
                 <font :style="'font-size: '+item.size+'px;color:#fff;'">
                     <b>♪</b>
                 </font>
@@ -20,17 +20,16 @@
             <el-card shadow="never" :body-style="{ padding: '0px' }">
                 <el-row>
                     <el-col :span="10">
-                        <el-menu @select="selectTopbar" :default-active="topbar.active" mode="horizontal">
+                        <el-menu @select="selectTopbar" :default-active="topbar.active" mode="horizontal" menu-trigger="click">
                             <el-submenu index="#more">
                                 <template slot="title">了解博主</template>
                                 <el-menu-item index="#githubHome">github主页</el-menu-item>
                                 <el-menu-item index="#blog">其他博客</el-menu-item>
                             </el-submenu>
-                            <!-- <el-submenu index="#social">
-                                <template slot="title">社交信息</template>
-                                <el-menu-item index="#followers">粉丝&nbsp;&nbsp;{{followers}}</el-menu-item>
-                                <el-menu-item index="#following">关注&nbsp;&nbsp;{{following}}</el-menu-item>
-                            </el-submenu> -->
+                            <el-submenu index="#webSites" v-if="webSites.length>0">
+                                <template slot="title">其他网站</template>
+                                <el-menu-item :index="'#webSites-'+index" v-for="(item,index) in webSites" :key="'#webSites'+index">{{item.name}}</el-menu-item>
+                            </el-submenu>
                         </el-menu>
                     </el-col>
                     <el-col :span="8" style="text-align: center;padding: 12px 0px 0px 10px">
@@ -152,7 +151,8 @@
                 'mini',
                 'followersTotal',
                 'followingTotal',
-                'audioAutoPlay'
+                'audioAutoPlay',
+                'webSites'
             ])
         },
         watch: {
@@ -167,8 +167,12 @@
             let width = window.innerWidth
             for (let i = 0; i < 12; i++) {
                 let temp = {}
+                let left = this.$util.randomInt(10, width - 310)
+                if(left>width/2-150){
+                    left+=300
+                }
+                temp["left"] = left
                 temp["top"] = this.$util.randomInt(20, 300)
-                temp["left"] = this.$util.randomInt(30, width - 30)
                 temp["size"] = this.$util.randomInt(20, 40)
                 this.randomIcon.push(temp)
             }
@@ -195,13 +199,22 @@
                         }
                         break
                     default:
+                        if(/#webSites-\d+/.test(index)){
+                            let i = parseInt(index.split('-')[1])
+                            let url = this.webSites[i].url
+                            window.open((url.match(/https?:\/\//i)?'':'https://') + url)
+                        }
                         break
                 }
             },
             moveIcon(index) {
                 let width = window.innerWidth
                 this.randomIcon[index]["top"] = this.$util.randomInt(20, 300)
-                this.randomIcon[index]["left"] = this.$util.randomInt(30, width - 30)
+                let left = this.$util.randomInt(10, width - 310)
+                if(left>width/2-150){
+                    left+=300
+                }
+                this.randomIcon[index]["left"] = left
             },
             full() {
                 if (!this.fullButton.full) {
