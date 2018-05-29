@@ -130,7 +130,7 @@
                 },
                 randomIcon: [],
                 background:{
-                bg1:require('../../assets/bg1.png')
+                bg1:require('../../assets/bg4.png')
                 }
             }
         },
